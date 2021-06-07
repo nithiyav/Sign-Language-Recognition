@@ -5,4 +5,5 @@ class Predictions(models.Model):
 
     image = models.CharField(max_length = 150)
     prediction = models.IntegerField()
+    prediction_path = models.CharField(max_length = 150)
 
