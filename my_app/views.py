@@ -47,4 +47,4 @@ class PredictionAPIView(APIView):
 
         prediction_path = 'static/predictions/'+prediction+'.jpg'
 
-        return Responseg({"Status": "Sucess"})
+        return Response({"Status": "Sucess"})
