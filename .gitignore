@@ -13,6 +13,7 @@ assets
 management
 .idea
 secret.py
+test/
 migrations
 
 
