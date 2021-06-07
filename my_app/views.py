@@ -47,4 +47,10 @@ class PredictionAPIView(APIView):
 
         prediction_path = 'static/labels/'+prediction+'.jpg'
 
-        return Response({"Status": "Sucess"})
+        data = {"image": filepath,
+                "prediction": prediction,
+                "prediction_path": prediction_path}
+
+        serializer = PredictionSerialzier(data = data)
+
+        return Response(serializer.data)
