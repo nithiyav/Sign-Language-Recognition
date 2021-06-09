@@ -1,5 +1,6 @@
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
@@ -53,4 +54,9 @@ class PredictionAPIView(APIView):
 
         serializer = PredictionSerialzier(data = data)
 
-        return Response(serializer.data)
+        if serializer.is_valid():
+            print("ok")
+            #serializer.save()
+
+
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
