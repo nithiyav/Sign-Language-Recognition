@@ -15,7 +15,7 @@ management
 secret.py
 test/
 migrations
-
+report/test/
 
 
 # Backup files # 

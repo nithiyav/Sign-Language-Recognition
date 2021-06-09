@@ -56,9 +56,7 @@ class PredictionAPIView(APIView):
 
         if serializer.is_valid():
             print("ok")
-            serializer.save()
+            #serializer.save()
 
-        else:
-            return Response(serializer.error, status = status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.data, status = status.HTTP_201_CREATED)

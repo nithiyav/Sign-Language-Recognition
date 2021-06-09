@@ -4,8 +4,8 @@ from tensorflow.keras.models import load_model
 
 model = load_model('model.h5')
 
-labels = ['0','1', '2','3''4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 
-		'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_']
+labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 
+		'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 		
 		
 cap = cv2.VideoCapture(0)
@@ -17,7 +17,7 @@ while True:
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
 		
-	test = cv2.resize(frame, (50, 50))
+	test = cv2.resize(frame, (224, 224))
 	test = test/255.0
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	test = np.expand_dims(test, axis = 0)
