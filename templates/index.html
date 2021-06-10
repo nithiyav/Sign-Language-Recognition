@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <title>Sign Language Recognition</title>
+</head>
+<body>
+
+<h2>Upload Image to Predict.</h2>
+
+<form action = "" method = "post" enctype = "multipart/form-data">
+{% csrf_token %}
+<input type = 'file' name = 'image'>
+<input type = 'submit' name = 'submit' value = "upload">
+
+</form>
+
+<script>
+(function($){
+    $('form').submit(function(event){
+    event.preventDefault();
+
+    var data = new FormData(this);
+
+    var action = function(d){
+        console.log(d);
+    }
+    $.ajax({
+                url: 'prediction',
+                data: data,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                success: action,
+                error: action,
+
+        })
+    });
+
+}(jQuery));
+</script>
+
+</body>
+</html>
