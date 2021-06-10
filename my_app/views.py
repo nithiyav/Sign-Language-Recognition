@@ -29,7 +29,7 @@ class PredictionAPIView(APIView):
 
         image = request.data['image']
 
-        folder = 'static/uploads/'
+        folder = 'media/uploads/'
 
         fs = FileSystemStorage(location = folder)
         name = fs.save(image.name, image)
@@ -50,7 +50,7 @@ class PredictionAPIView(APIView):
 
         prediction = labels[prediction]
 
-        prediction_path = 'static/labels/' + prediction + '.jpg'
+        prediction_path = 'media/labels/' + prediction + '.jpg'
 
         prediction = "The Predicted Alphabet is: "+str(prediction)
 
