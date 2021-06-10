@@ -1,4 +1,7 @@
+import pathlib
+import requests
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -10,10 +13,11 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import numpy as np
 from labels import *
+import os
 
 def normalize(img):
 
-    img = cv2.resize(img, (50, 50))
+    img = cv2.resize(img, (224, 224))
     img = img / 255
     img = np.expand_dims(img, axis=0)
     return img
@@ -38,7 +42,7 @@ class PredictionAPIView(APIView):
         input_image = normalize(input_image)
 
         print("Loading model....")
-        model = tf.keras.models.load_model('trained-models/model.h5')
+        model = tf.keras.models.load_model('trained-models/mobilenet/model.h5')
         print("Model Loaded Successfully!!")
 
         prediction = model.predict([input_image])
@@ -46,7 +50,9 @@ class PredictionAPIView(APIView):
 
         prediction = labels[prediction]
 
-        prediction_path = 'static/labels/'+prediction+'.jpg'
+        prediction_path = 'static/labels/' + prediction + '.jpg'
+
+        prediction = "The Predicted Alphabet is: "+str(prediction)
 
         data = {"image": filepath,
                 "prediction": prediction,
@@ -55,8 +61,13 @@ class PredictionAPIView(APIView):
         serializer = PredictionSerialzier(data = data)
 
         if serializer.is_valid():
-            print("ok")
+            print("Sucess\n")
             #serializer.save()
 
+        file_to_rem = pathlib.Path(filepath)
+        file_to_rem.unlink()
 
         return Response(serializer.data, status = status.HTTP_201_CREATED)
+
+def home(request):
+    return render(request, 'index.html')
