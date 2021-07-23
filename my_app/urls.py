@@ -9,6 +9,8 @@ urlpatterns = [
                 path('prediction', PredictionAPIView.as_view()),
 
                 path('', views.home, name = 'home'),
+                path('result', views.result, name = 'result'),
+                path('predict', views.predict, name = 'predict'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
