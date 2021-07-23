@@ -26,7 +26,7 @@
     var data = new FormData(this);
 
     var action = function(d){
-        console.log(d);
+        console.log(d.image);
     }
     $.ajax({
                 url: 'prediction',
@@ -34,9 +34,11 @@
                 type: "POST",
                 contentType: false,
                 processData: false,
-                success: action,
+                success: function() {
+                            localStorage.setItem('response', data);
+                            window.location.href = "result";
+                            },
                 error: action,
-
         })
     });
 
