@@ -31,4 +31,3 @@ while True:
 
 cap.release()
 cap.destroyAllWindows()
-	
