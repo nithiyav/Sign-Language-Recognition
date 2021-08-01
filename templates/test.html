@@ -1,10 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Sign Language Recognition</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'js/main.js' %}">
 </head>
 <body>
-$END$
+    <div class="body">
+        <div>
+            <h1>Sign Language Recognition</h1>
+        </div>
+
+        <div id="dragndropimage" class="uploadimage-dragndrop">
+            <div class="uploadimage-text">Drag images here</div>
+            <div>Or, if you prefer...</div>
+            <div class="uploadimage-input">
+                <form action = 'predict' method = "post" enctype = "multipart/form-data">
+                    {% csrf_token %}
+                <input type="file" class="button_slide slide_left" multiple="multiple" name="image" id="upload-input" /> <br><br>
+                    <button type = 'submit' class="button_slide slide_diagonal">Upload Image</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="upload-liveuploads" data-bind="template: { name: 'template-uploads' }"></div>
+
+        <script type="text/html" id="template-uploads">
+            <div data-bind="visible: showTotalProgress()">
+                <div>
+                    <span data-bind="text: uploadSpeedFormatted()"></span>
+                    <span data-bind="text: timeRemainingFormatted()" style="float: right;"></span>
+                </div>
+                <div class="uploadimage-totalprogress">
+                    <div class="uploadimage-totalprogressbar" style="width: 0%;" data-bind="style: { width: totalProgress() + '%' }"></div>
+                </div>
+            </div>
+            <div data-bind="foreach: uploads">
+                <div class="uploadimage-upload" data-bind="css: { 'uploadimage-uploadcompleted': uploadCompleted() }">
+                    <div class="uploadimage-fileinfo">
+                        <strong data-bind="text: fileName"></strong>
+                        <span data-bind="text: fileSizeFormated"></span>
+                        <span class="uploadimage-progresspct" data-bind="visible: uploadProgress() < 100"><span data-bind="text: uploadSpeedFormatted()"></span></span>
+                    </div>
+                    <div class="uploadimage-progress">
+                        <div class="uploadimage-progressbar" style="width: 0%;" data-bind="style: { width: uploadProgress() + '%' }"></div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+
+    </div>
 </body>
 </html>
