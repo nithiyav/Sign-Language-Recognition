@@ -70,7 +70,7 @@ class PredictionAPIView(APIView):
         return Response(serializer.data, status = status.HTTP_201_CREATED)
 
 def home(request):
-    return render(request, 'test.html')
+    return render(request, 'main.html')
 
 def result(request):
     return render(request, 'results.html')
